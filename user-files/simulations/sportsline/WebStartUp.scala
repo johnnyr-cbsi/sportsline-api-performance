@@ -23,8 +23,9 @@ import scala.concurrent.duration._
 class WebStartUp extends Simulation {
 
   val httpProtocol = http
-//    .baseUrl("https://localhost:8443/service/v1") // Here is the root for all relative URLs
-    .baseUrl("https://qa.sportsline.com/sportsline-web/service/v1") // Here is the root for all relative URLs
+    .baseUrl("https://localhost:8443/service/v1") // Here is the root for all relative URLs
+//    .baseUrl("https://qa.sportsline.com/sportsline-web/service/v1") // Here is the root for all relative URLs
+//    .baseUrl("https://dev.sportsline.com/sportsline-web/service/v1") // Here is the root for all relative URLs
 //    .acceptHeader("text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8") // Here are the common headers
     .acceptHeader("application/json")
     .doNotTrackHeader("1")
@@ -38,5 +39,5 @@ class WebStartUp extends Simulation {
 
 //  setUp(scn.inject(rampUsers(100) during (300 seconds)).protocols(httpProtocol))
 //  setUp(scn.inject(constantUsersPerSec(20) during (60 seconds)).protocols(httpProtocol))
-  setUp(scn.inject(rampUsersPerSec(1) to (20) during (60 seconds)).protocols(httpProtocol))
+  setUp(scn.inject(rampUsersPerSec(1) to (160) during (120 seconds)).protocols(httpProtocol))
 }
