@@ -20,7 +20,7 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import scala.concurrent.duration._
 
-class WebStartUp extends Simulation {
+class HomePageSimulation extends Simulation {
 
   val httpProtocol = http
     .baseUrl("https://localhost:8443/service/v1") // Here is the root for all relative URLs
@@ -33,11 +33,15 @@ class WebStartUp extends Simulation {
     .acceptEncodingHeader("gzip, deflate")
     .userAgentHeader("Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:16.0) Gecko/20100101 Firefox/16.0")
 
-  val scn = scenario("webStartup") // A scenario is a chain of requests and pauses
-    .exec(http("webstartup") // Here's an example of a POST request
-      .get("/webStartup"))
+  val scn = scenario("homePageSimulation") // A scenario is a chain of requests and pauses
+    .exec(
+      http("webstartup")
+        .get("/webStartup"))
+    .exec(
+        http("homePage")
+          .get("/homePageContent?league=all&pickType=ALL&includeVideo=true&includeArticles=true&includeSimPicks=true&includeHotExperts=true&pageVideoType=&max=12&version=2&auth=1"))
 
 //  setUp(scn.inject(rampUsers(100) during (300 seconds)).protocols(httpProtocol))
 //  setUp(scn.inject(constantUsersPerSec(20) during (60 seconds)).protocols(httpProtocol))
-  setUp(scn.inject(rampUsersPerSec(1) to (80) during (120 seconds)).protocols(httpProtocol))
+  setUp(scn.inject(rampUsersPerSec(1) to (20) during (60 seconds)).protocols(httpProtocol))
 }
