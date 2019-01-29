@@ -23,8 +23,10 @@ import scala.concurrent.duration._
 class HomePageService extends Simulation {
 
   val httpProtocol = http
-    .baseUrl("https://localhost:8443/service/v1") // Here is the root for all relative URLs
-//    .acceptHeader("text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8") // Here are the common headers
+//    .baseUrl("https://localhost:8443/service/v1") // Here is the root for all relative URLs
+    .baseUrl("https://qa.sportsline.com/sportsline-web/service/v1") // Here is the root for all relative URLs
+
+    //    .acceptHeader("text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8") // Here are the common headers
     .acceptHeader("application/json")
     .doNotTrackHeader("1")
     .acceptLanguageHeader("en-US,en;q=0.5")

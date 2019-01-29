@@ -20,24 +20,24 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import scala.concurrent.duration._
 
-class WebStartUp extends Simulation {
+class APITechEval extends Simulation {
 
   val httpProtocol = http
 //    .baseUrl("https://localhost:8443/service/v1") // Here is the root for all relative URLs
-    .baseUrl("https://qa.sportsline.com/sportsline-web/service/v1") // Here is the root for all relative URLs
+    .baseUrl("http://localhost:8080") // Here is the root for all relative URLs
 //    .baseUrl("https://dev.sportsline.com/sportsline-web/service/v1") // Here is the root for all relative URLs
 //    .acceptHeader("text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8") // Here are the common headers
-    .acceptHeader("application/json")
+    .acceptHeader("application/xml")
     .doNotTrackHeader("1")
     .acceptLanguageHeader("en-US,en;q=0.5")
     .acceptEncodingHeader("gzip, deflate")
     .userAgentHeader("Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:16.0) Gecko/20100101 Firefox/16.0")
 
-  val scn = scenario("webStartup") // A scenario is a chain of requests and pauses
-    .exec(http("webstartup") // Here's an example of a POST request
-      .get("/webStartup"))
+  val scn = scenario("football-nfl-odds") // A scenario is a chain of requests and pauses
+    .exec(http("nflodds")
+      .get("/football/nfl/odds"))
 
 //  setUp(scn.inject(rampUsers(100) during (300 seconds)).protocols(httpProtocol))
 //  setUp(scn.inject(constantUsersPerSec(20) during (60 seconds)).protocols(httpProtocol))
-  setUp(scn.inject(rampUsersPerSec(1) to (80) during (120 seconds)).protocols(httpProtocol))
+  setUp(scn.inject(rampUsersPerSec(1) to (20) during (60 seconds)).protocols(httpProtocol))
 }
